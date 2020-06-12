@@ -4,8 +4,10 @@ using SampleWorld.engine.support;
 using System.Collections.Generic;
 namespace SampleWorld.engine.gameObjects
 {
-    interface IGameObject : IAdjustable
+    public interface IGameObject : IAdjustable
     {
+        List<ILocalComponent> GetAllComponents();
+
         //获取父对象
         IGameObject GetParent();
 
@@ -27,9 +29,16 @@ namespace SampleWorld.engine.gameObjects
         //获取所有父节点子组件
         T GetParentsComponent<T>() where T : ILocalComponent;
 
+        //添加子对象
+        void AddChild(IGameObject gameObject);
+
         //添加组件
         void AddComponent<T>(T component) where T : ILocalComponent;
 
+        //删除组件
+        void RemoveComponent(ILocalComponent component);
+
+        //销毁自身
         void Destory();
     }
 }

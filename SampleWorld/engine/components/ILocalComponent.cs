@@ -4,7 +4,7 @@ using SampleWorld.engine.support;
 
 namespace SampleWorld.engine.components
 {
-    interface ILocalComponent : IAdjustable
+    public interface ILocalComponent : IAdjustable
     {
         //更新组件状态
         void Update(GameTime gameTime);

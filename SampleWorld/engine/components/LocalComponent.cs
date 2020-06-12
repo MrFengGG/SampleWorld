@@ -4,11 +4,17 @@ using SampleWorld.engine.gameObjects;
 
 namespace SampleWorld.engine.components
 {
-    abstract class LocalComponent : ILocalComponent
+    public class LocalComponent : ILocalComponent
     {
         private bool isActive;
 
         private IGameObject parent;
+
+        public LocalComponent(IGameObject gameObject)
+        {
+            parent = gameObject;
+            gameObject.AddComponent(this);
+        }
 
         public void Active()
         {
@@ -30,6 +36,6 @@ namespace SampleWorld.engine.components
             isActive = false;
         }
 
-        public abstract void Update(GameTime gameTime);
+        public void Update(GameTime gameTime) { }
     }
 }

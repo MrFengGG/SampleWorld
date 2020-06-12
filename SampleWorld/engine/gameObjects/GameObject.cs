@@ -3,11 +3,8 @@ using SampleWorld.engine.components;
 
 namespace SampleWorld.engine.gameObjects
 {
-    class GameObject : IGameObject
+    public class GameObject : IGameObject
     {
-
-        private List<ILocalComponent> gameComponents = new List<ILocalComponent>();
-
         private IGameObject parent;
 
         private List<IGameObject> children;
@@ -16,43 +13,45 @@ namespace SampleWorld.engine.gameObjects
 
         bool isActive;
 
+        public GameObject(GameObjectManager manager, IGameObject parent)
+        {
+            objectManager = manager;
+            manager.AddObject(this);
+            this.parent = parent;
+            isActive = true;
+        }
+
         public void Active()
         {
             isActive = true;
-            foreach(ILocalComponent component in gameComponents)
+            foreach(ILocalComponent component in objectManager.getAllComponents(this))
             {
                 component.Active();
             }
         }
 
+        public void Passive()
+        {
+            isActive = true;
+            foreach (ILocalComponent component in objectManager.getAllComponents(this))
+            {
+                component.Passive();
+            }
+        }
+
         public void AddComponent<T>(T component) where T : ILocalComponent
         {
-            gameComponents.Add(component);
+            objectManager.AddComponent(this, component);
         }
 
         public T GetComponent<T>() where T : ILocalComponent
         {
-            foreach (ILocalComponent component in gameComponents)
-            {
-                if (component.GetType().Equals(typeof(T)))
-                {
-                    return (T)component;
-                }
-            }
-            return default(T);
+            return objectManager.GetComponent<T>(this);
         }
 
         public List<T> GetComponentList<T>() where T : ILocalComponent
         {
-            List<T> components = new List<T>();
-            foreach (ILocalComponent component in gameComponents)
-            {
-                if (component.GetType().Equals(typeof(T)))
-                {
-                    components.Add((T)component);
-                }
-            }
-            return components;
+            return objectManager.GetComponents<T>(this);
         }
 
         public IGameObject GetParent()
@@ -85,17 +84,35 @@ namespace SampleWorld.engine.gameObjects
             return isActive;
         }
 
-        public void Passive()
-        {
-            isActive = false;
-        }
-
         public void Destory()
         {
             if(children == null || children.Count == 0)
             {
-
+                objectManager.RemoveObject(this);
             }
+            foreach(IGameObject child in children)
+            {
+                child.Destory();
+            }
+        }
+
+        public void AddChild(IGameObject gameObject)
+        {
+            if(children == null)
+            {
+                children = new List<IGameObject>();
+            }
+            children.Add(gameObject);
+        }
+
+        public void RemoveComponent(ILocalComponent component)
+        {
+            objectManager.RemoveComponent(this, component);
+        }
+
+        public List<ILocalComponent> GetAllComponents()
+        {
+            return objectManager.getAllComponents(this);
         }
     }
 }

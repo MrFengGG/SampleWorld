@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="engine\components\spirites\SpiriteComponent.cs" />
     <Compile Include="engine\managers\GameObjectManager.cs" />
     <Compile Include="engine\components\DrawableLocalComponent.cs" />
     <Compile Include="engine\components\ILocalComponent.cs" />

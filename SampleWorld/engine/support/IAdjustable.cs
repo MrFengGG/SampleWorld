@@ -1,7 +1,7 @@
 ﻿
 namespace SampleWorld.engine.support
 {
-    interface IAdjustable
+    public interface IAdjustable
     {
         bool IsActive();
 

@@ -4,50 +4,100 @@ using System.Collections.Generic;
 
 namespace SampleWorld.engine.components
 {
-    class GameObjectManager : DrawableGameComponent
+    public class GameObjectManager : DrawableGameComponent
     {
-        List<ILocalComponent> components = new List<ILocalComponent>();
+        Dictionary<IGameObject, List<ILocalComponent>> objectComponentMap = new Dictionary<IGameObject, List<ILocalComponent>>();
 
-        List<IGameObject> roots = new List<IGameObject>();
+        List<IGameObject> toRemoveObject = new List<IGameObject>();
 
         public GameObjectManager(Game game) : base(game)
         {
             game.Components.Add(this);
         }
 
+        //渲染组件
         public override void Draw(GameTime gameTime)
         {
-            foreach(ILocalComponent component in components)
-            {
-                DrawableLocalComponent drawableComponent = component as DrawableLocalComponent;
-                if(drawableComponent != null)
+            foreach(IGameObject gameObject in objectComponentMap.Keys){
+                foreach (ILocalComponent component in objectComponentMap[gameObject])
                 {
-                    drawableComponent.Draw(gameTime);
+                    DrawableLocalComponent drawableComponent = component as DrawableLocalComponent;
+                    if (drawableComponent != null)
+                    {
+                        drawableComponent.Draw(gameTime);
+                    }
                 }
             }
         }
-
+        //更新组件
         public override void Update(GameTime gameTime)
         {
-            foreach (ILocalComponent component in components)
+            foreach(IGameObject gameObject in toRemoveObject)
             {
-                component.Update(gameTime);
+                destoryGameObject(gameObject);
+            }
+            foreach (IGameObject gameObject in objectComponentMap.Keys)
+            {
+                foreach (ILocalComponent component in objectComponentMap[gameObject])
+                {
+                    component.Update(gameTime);
+                }
             }
         }
-
-        public void AddComponent(ILocalComponent localComponent)
+        //添加游戏对象
+        public void AddObject(IGameObject gameObject)
         {
-            components.Add(localComponent);
+            objectComponentMap[gameObject] = new List<ILocalComponent>();
         }
-
-        public void RemoveComponent(ILocalComponent localComponent)
+        //获取对象组件
+        public T GetComponent<T>(IGameObject gameObject) where T : ILocalComponent
         {
-            components.Remove(localComponent);
+            foreach (ILocalComponent component in objectComponentMap[gameObject])
+            {
+                if (component.GetType().Equals(typeof(T)))
+                {
+                    return (T)component;
+                }
+            }
+            return default(T);
         }
-
+        //获取对象组件列表
+        public List<T> GetComponents<T>(IGameObject gameObject) where T : ILocalComponent
+        {
+            List<T> components = new List<T>();
+            foreach (ILocalComponent component in objectComponentMap[gameObject])
+            {
+                if (component.GetType().Equals(typeof(T)))
+                {
+                    components.Add((T)component);
+                }
+            }
+            return components;
+        }
+        //获取对象所有组件
+        public List<ILocalComponent> getAllComponents(IGameObject gameObject)
+        {
+            return objectComponentMap[gameObject];
+        }
+        //删除游戏对象
         public void RemoveObject(IGameObject gameObject)
         {
-            roots.Remove(gameObject);
+            toRemoveObject.Add(gameObject);
+        }
+        //为对象添加组件
+        public void AddComponent(IGameObject gameObject, ILocalComponent localComponent)
+        {
+            objectComponentMap[gameObject].Add(localComponent);
+        }
+        //删除组件
+        public void RemoveComponent(IGameObject gameObject, ILocalComponent localComponent)
+        {
+            objectComponentMap[gameObject].Remove(localComponent);
+        }
+        //销毁对象
+        private void destoryGameObject(IGameObject gameObject)
+        {
+            objectComponentMap.Remove(gameObject);
         }
     }
 }
