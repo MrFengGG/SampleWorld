@@ -8,7 +8,5 @@ namespace SampleWorld.engine.components
     {
         //更新组件状态
         void Update(GameTime gameTime);
-        //获取持有组件的对象
-        IGameObject GetParent();
     }
 }

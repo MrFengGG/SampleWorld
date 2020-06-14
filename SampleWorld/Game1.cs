@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SampleWorld.engine.components;
+using SampleWorld.engine.components.camera;
+using SampleWorld.game.objeccts;
 
 namespace SampleWorld
 {
@@ -10,7 +13,8 @@ namespace SampleWorld
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        GameObjectManager gameObjectManager;
+        SampleCamera2D camera;
 
         public Game1()
         {
@@ -27,7 +31,7 @@ namespace SampleWorld
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            this.IsMouseVisible = true;
             base.Initialize();
         }
 
@@ -38,7 +42,20 @@ namespace SampleWorld
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            gameObjectManager = new GameObjectManager(this);
+
+            TestGameObject testGame = new TestGameObject(gameObjectManager, null);
+            gameObjectManager.AddObject(testGame);
+            camera = new SampleCamera2D(testGame, GraphicsDevice);
+            for (int i = 0; i < 10;i++)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    TestObstacle test = new TestObstacle(gameObjectManager, null);
+                    test.Position = new Vector2(40 * i, 40 * j);
+                    gameObjectManager.AddObject(test);
+                }
+            }
 
             // TODO: use this.Content to load your game content here
         }
@@ -74,9 +91,10 @@ namespace SampleWorld
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            gameObjectManager.SpriteBatch.Begin(SpriteSortMode.FrontToBack, null, null,null,null,null,camera.Transform);
             // TODO: Add your drawing code here
             base.Draw(gameTime);
+            gameObjectManager.SpriteBatch.End();
         }
     }
 }

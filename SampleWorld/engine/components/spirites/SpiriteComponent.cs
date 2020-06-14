@@ -1,17 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using SampleWorld.engine.gameObjects;
 
 namespace SampleWorld.engine.components.spirites
 {
-    public class SpiriteComponent : LocalComponent
+    public class SpiriteComponent : DrawableLocalComponent
     {
-        public SpiriteComponent(IGameObject gameObject) : base(gameObject)
+        public Texture2D Texture { get; set; }
+
+        public Rectangle SourceRectangle { get; set; }
+
+        public Color TextureColor { get; set; }
+
+        public float Depth { get; set; }
+
+        public Vector2 Origin { get; set; }
+
+        public Vector2 Position { get; set; }
+
+        public SpiriteComponent(Texture2D texture,GameObject gameObject, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch) : base(gameObject, graphicsDevice, spriteBatch)
         {
+            Texture = texture;
+            TextureColor = Color.White;
+            Depth = 0.5f;
+            Origin = new Vector2(1, 1);
+            SourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
+        }
+
+        public SpiriteComponent(Texture2D texture, GameObject gameObject, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, Rectangle rectangle) : this(texture, gameObject, graphicsDevice, spriteBatch)
+        {
+            SourceRectangle = rectangle;
+        }
+        public override void Draw(GameTime gameTime)
+        {
+            SpriteBatch.Draw(Texture, Parent.Position + Position, SourceRectangle, TextureColor,
+                Parent.Rotation, Origin, Parent.Scale, SpriteEffects.None, Depth);
         }
     }
 }

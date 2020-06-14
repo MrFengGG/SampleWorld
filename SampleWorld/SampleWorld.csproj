@@ -41,15 +41,32 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="engine\components\animations\Animation.cs" />
+    <Compile Include="engine\components\animations\AnimationComponent.cs" />
+    <Compile Include="engine\components\animations\AnimationControllerComponent.cs" />
+    <Compile Include="engine\components\animations\AnimationFrame.cs" />
+    <Compile Include="engine\components\camera\SampleCamera2D.cs" />
+    <Compile Include="engine\components\physic\ColliderComponent.cs" />
+    <Compile Include="engine\components\physic\Collider.cs" />
+    <Compile Include="engine\managers\PhysicSystem.cs" />
+    <Compile Include="engine\components\physic\SampleCollider.cs" />
     <Compile Include="engine\components\spirites\SpiriteComponent.cs" />
     <Compile Include="engine\managers\GameObjectManager.cs" />
     <Compile Include="engine\components\DrawableLocalComponent.cs" />
     <Compile Include="engine\components\ILocalComponent.cs" />
     <Compile Include="engine\components\LocalComponent.cs" />
+    <Compile Include="engine\respurces\ResourceLoader.cs" />
     <Compile Include="engine\support\IAdjustable.cs" />
     <Compile Include="engine\gameObjects\GameObject.cs" />
     <Compile Include="engine\gameObjects\IGameObject.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="game\objeccts\TestGameObject.cs" />
+    <Compile Include="game\objeccts\TestObstacle.cs" />
+    <Compile Include="game\objeccts\weapons\Bullet.cs" />
+    <Compile Include="game\scripts\MoveAnimationScript.cs" />
+    <Compile Include="game\scripts\MoveDirectScript.cs" />
+    <Compile Include="game\scripts\MoveScript.cs" />
+    <Compile Include="game\scripts\WeaponScript.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,13 +78,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bullet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\character.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
     <None Include="app.manifest" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="game\objeccts\characters\" />
+    <Folder Include="game\objeccts\obstacles\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

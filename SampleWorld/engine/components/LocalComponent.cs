@@ -8,22 +8,17 @@ namespace SampleWorld.engine.components
     {
         private bool isActive;
 
-        private IGameObject parent;
+        public GameObject Parent { get; }
 
-        public LocalComponent(IGameObject gameObject)
+        public LocalComponent(GameObject gameObject)
         {
-            parent = gameObject;
+            Parent = gameObject;
             gameObject.AddComponent(this);
         }
 
         public void Active()
         {
             isActive = true;
-        }
-
-        public IGameObject GetParent()
-        {
-            return parent;
         }
 
         public bool IsActive()
@@ -36,6 +31,6 @@ namespace SampleWorld.engine.components
             isActive = false;
         }
 
-        public void Update(GameTime gameTime) { }
+        public virtual void Update(GameTime gameTime) { }
     }
 }
