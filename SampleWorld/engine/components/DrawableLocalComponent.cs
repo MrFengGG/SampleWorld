@@ -12,8 +12,8 @@ namespace SampleWorld.engine.components
         public SpriteBatch SpriteBatch { get; }
 
         public DrawableLocalComponent(GameObject gameObject) : base(gameObject){
-            GraphicsDevice = gameObject.ObjectManager.GraphicsDevice;
-            SpriteBatch = gameObject.ObjectManager.SpriteBatch;
+            GraphicsDevice = gameObject.World.GraphicsDevice;
+            SpriteBatch = gameObject.World.SpriteBatch;
         }
 
         public abstract void Draw(GameTime gameTime);

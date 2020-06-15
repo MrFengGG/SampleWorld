@@ -25,7 +25,7 @@ namespace SampleWorld.engine.gameObjects
                 Vector2 delta = new Vector2(value.X - Position.X, value.Y - Position.Y);
                 foreach(ColliderComponent component in colliderComponents)
                 {
-                    if(ObjectManager.PhysicSystem.DetectionMove(component, ref delta)){
+                    if(World.PhysicSystem.DetectionMove(component, ref delta)){
                         position.X += delta.X;
                         position.Y += delta.Y;
                         return;
@@ -43,17 +43,17 @@ namespace SampleWorld.engine.gameObjects
 
         private List<GameObject> children;
 
-        public GameObjectManager ObjectManager { get; }
+        public World World { get; }
 
         bool isActive;
 
-        public GameObject(GameObjectManager manager, GameObject parent)
+        public GameObject(World world, GameObject parent)
         {
             Scale = new Vector2(1, 1);
             Rotation = 0;
 
-            ObjectManager = manager;
-            manager.AddObject(this);
+            World = world;
+            world.AddObject(this);
             Parent = parent;
             if (Parent != null)
             {
@@ -67,7 +67,7 @@ namespace SampleWorld.engine.gameObjects
         public void Active()
         {
             isActive = true;
-            foreach(ILocalComponent component in ObjectManager.getAllComponents(this))
+            foreach(ILocalComponent component in World.getAllComponents(this))
             {
                 component.Active();
             }
@@ -76,7 +76,7 @@ namespace SampleWorld.engine.gameObjects
         public void Passive()
         {
             isActive = true;
-            foreach (ILocalComponent component in ObjectManager.getAllComponents(this))
+            foreach (ILocalComponent component in World.getAllComponents(this))
             {
                 component.Passive();
             }
@@ -84,17 +84,17 @@ namespace SampleWorld.engine.gameObjects
 
         public void AddComponent<T>(T component) where T : LocalComponent
         {
-            ObjectManager.AddComponentLazy(component);
+            World.AddComponentLazy(component);
         }
 
         public T GetComponent<T>() where T : LocalComponent
         {
-            return ObjectManager.GetComponent<T>(this);
+            return World.GetComponent<T>(this);
         }
 
         public List<T> GetComponentList<T>() where T : LocalComponent
         {
-            return ObjectManager.GetComponents<T>(this);
+            return World.GetComponents<T>(this);
         }
 
         public T GetParentComponent<T>() where T : LocalComponent
@@ -126,7 +126,7 @@ namespace SampleWorld.engine.gameObjects
         {
             if(children == null || children.Count == 0)
             {
-                ObjectManager.RemoveObject(this);
+                World.RemoveObject(this);
                 return;
             }
             foreach(IGameObject child in children)
@@ -146,12 +146,12 @@ namespace SampleWorld.engine.gameObjects
 
         public void RemoveComponent(LocalComponent component)
         {
-            ObjectManager.RemoveComponentLazy(component);
+            World.RemoveComponentLazy(component);
         }
 
         public List<LocalComponent> GetAllComponents()
         {
-            return ObjectManager.getAllComponents(this);
+            return World.getAllComponents(this);
         }
 
         public virtual void Initial()

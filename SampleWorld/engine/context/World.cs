@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace SampleWorld.engine.components
 {
-    public class GameObjectManager : DrawableGameComponent
+    public class World : DrawableGameComponent
     {
         public SpriteBatch SpriteBatch { get; }
 
@@ -23,7 +23,7 @@ namespace SampleWorld.engine.components
 
         public PhysicSystem PhysicSystem { get; }
 
-        public GameObjectManager(Game game) : base(game)
+        public World(Game game) : base(game)
         {
             game.Components.Add(this);
             SpriteBatch = new SpriteBatch(GraphicsDevice);

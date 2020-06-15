@@ -10,11 +10,14 @@ namespace SampleWorld.game.objeccts.weapons
 {
     class Bullet : GameObject
     {
-        public Bullet(GameObjectManager manager, GameObject parent, Vector2 direction) : base(manager, parent)
+        public Bullet(World manager, GameObject parent, Vector2 direction, Vector2 position, float rotation) : base(manager, parent)
         {
-            MoveDirectScript moveDirectScript = new MoveDirectScript(this, 1, direction, 5);
+            MoveDirectScript moveDirectScript = new MoveDirectScript(this, 1000, direction, rotation, 1);
             Texture2D texture = ResourceLoader.LoadTexture2D(manager.GraphicsDevice, "bullet", "Content/bullet.png");
             SpiriteComponent spirite = new SpiriteComponent(texture, this);
+            Scale = new Vector2(0.1f, 0.1f);
+            Position = position;
+            Rotation = rotation;
         }
     }
 }

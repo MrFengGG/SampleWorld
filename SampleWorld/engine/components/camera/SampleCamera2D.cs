@@ -5,7 +5,7 @@ using SampleWorld.engine.gameObjects;
 
 namespace SampleWorld.engine.components.camera
 {
-    class SampleCamera2D : LocalComponent
+    public class Camera
     {
         public float Rotation { get; set; }
         public Vector2 Origin { get; set; }
@@ -13,6 +13,8 @@ namespace SampleWorld.engine.components.camera
         public Vector2 ScreenCenter { get; protected set; }
         public Matrix Transform { get; set; }
         public float Speed { get; set; }
+
+        public GameObject Follow { get; set; }
 
         private Vector2 position;
 
@@ -26,8 +28,9 @@ namespace SampleWorld.engine.components.camera
 
         protected float viewportWidth;
 
-        public SampleCamera2D(GameObject gameObject, GraphicsDevice graphicsDevice) : base(gameObject)
+        public Camera(GameObject follow, GraphicsDevice graphicsDevice)
         {
+            Follow = follow;
             viewportWidth = graphicsDevice.Viewport.Width;
             viewportHeight = graphicsDevice.Viewport.Height;
             ScreenCenter = new Vector2(viewportWidth / 2, viewportHeight / 2);
@@ -35,7 +38,7 @@ namespace SampleWorld.engine.components.camera
             Speed = 1.25f;
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             Transform = Matrix.Identity *
                         Matrix.CreateTranslation(-Position.X, -Position.Y, 0) *
@@ -47,10 +50,8 @@ namespace SampleWorld.engine.components.camera
 
             var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            position.X += (Parent.Position.X - Position.X) * Speed * delta;
-            position.Y += (Parent.Position.Y - Position.Y) * Speed * delta;
-
-            base.Update(gameTime);
+            position.X += (Follow.Position.X - Position.X) * Speed * delta;
+            position.Y += (Follow.Position.Y - Position.Y) * Speed * delta;
         }
 
     }

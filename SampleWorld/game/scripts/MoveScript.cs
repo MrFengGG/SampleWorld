@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Input;
 using SampleWorld.engine.components;
 using SampleWorld.engine.gameObjects;
-using System;
 
 namespace SampleWorld.game.scripts
 {

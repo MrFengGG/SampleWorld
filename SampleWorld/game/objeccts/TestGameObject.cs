@@ -11,7 +11,7 @@ namespace SampleWorld.game.objeccts
 {
     class TestGameObject : GameObject
     {
-        public TestGameObject(GameObjectManager manager, GameObject parent) : base(manager, parent)
+        public TestGameObject(World manager, GameObject parent) : base(manager, parent)
         {
             Texture2D multiTexture = ResourceLoader.LoadTexture2D(manager.GraphicsDevice, "character", "Content/character.png");
             Animation moveDownAnimation = new Animation(manager.SpriteBatch,new AnimationFrame(multiTexture, new Rectangle(0, 0, 16, 16)));

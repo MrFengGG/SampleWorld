@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SampleWorld.engine.components;
 using SampleWorld.engine.components.camera;
+using SampleWorld.engine.managers;
 using SampleWorld.game.objeccts;
 
 namespace SampleWorld
@@ -13,8 +14,8 @@ namespace SampleWorld
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
-        GameObjectManager gameObjectManager;
-        SampleCamera2D camera;
+        World world;
+        Camera camera;
 
         public Game1()
         {
@@ -42,15 +43,16 @@ namespace SampleWorld
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            gameObjectManager = new GameObjectManager(this);
+            world = new World(this);
 
-            TestGameObject testGame = new TestGameObject(gameObjectManager, null);
-            camera = new SampleCamera2D(testGame, GraphicsDevice);
+            TestGameObject testGame = new TestGameObject(world, null);
+            camera = new Camera(testGame, GraphicsDevice);
+            camera.Follow = testGame;
             for (int i = 0; i < 10;i++)
             {
                 for (int j = 0; j < 10; j++)
                 {
-                    TestObstacle test = new TestObstacle(gameObjectManager, null);
+                    TestObstacle test = new TestObstacle(world, null);
                     test.Position = new Vector2(40 * i, 40 * j);
                 }
             }
@@ -78,7 +80,7 @@ namespace SampleWorld
                 Exit();
 
             // TODO: Add your update logic here
-
+            camera.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -89,10 +91,11 @@ namespace SampleWorld
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            gameObjectManager.SpriteBatch.Begin(SpriteSortMode.FrontToBack, null, null,null,null,null,camera.Transform);
+            InputContext.CurrentTransform = camera.Transform;
+            world.SpriteBatch.Begin(SpriteSortMode.FrontToBack, null, null,null,null,null,camera.Transform);
             // TODO: Add your drawing code here
             base.Draw(gameTime);
-            gameObjectManager.SpriteBatch.End();
+            world.SpriteBatch.End();
         }
     }
 }

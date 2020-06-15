@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using SampleWorld.engine.components;
 using SampleWorld.engine.gameObjects;
+using System;
 
 namespace SampleWorld.game.scripts
 {
@@ -9,14 +10,16 @@ namespace SampleWorld.game.scripts
     {
         public float Speed{ get; set;}
         public Vector2 Direction { get; set; }
+        public float Rotation { get; set; }
         private float liveSeconds = 0;
         private float aliveSeconds = 10;
 
-        public MoveDirectScript(GameObject gameObject, float speed, Vector2 direction, float liveSeconds) : base(gameObject)
+        public MoveDirectScript(GameObject gameObject, float speed, Vector2 direction, float rotation, float liveSeconds) : base(gameObject)
         {
             Speed = speed;
             Direction = direction;
             aliveSeconds = liveSeconds;
+            Rotation = rotation;
         }
 
         public override void Update(GameTime gameTime)
@@ -27,8 +30,8 @@ namespace SampleWorld.game.scripts
             {
                 Parent.Destory();
             }
-            Parent.Position = new Vector2(Direction.X * Speed * second, Direction.Y * Speed * second);
-
+            Parent.Position = Parent.Position + Speed * second * Direction;
+            Parent.Rotation = Rotation;
         }
     }
 }

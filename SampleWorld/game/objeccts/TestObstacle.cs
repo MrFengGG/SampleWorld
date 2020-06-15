@@ -10,7 +10,7 @@ namespace SampleWorld.game.objeccts
 {
     class TestObstacle : GameObject
     {
-        public TestObstacle(GameObjectManager manager, GameObject parent) : base(manager, parent)
+        public TestObstacle(World manager, GameObject parent) : base(manager, parent)
         {
             Texture2D multiTexture = ResourceLoader.LoadTexture2D(manager.GraphicsDevice, "character", "Content/character.png");
             SpiriteComponent spirite = new SpiriteComponent(multiTexture, this, new Rectangle(112, 0, 16, 16));

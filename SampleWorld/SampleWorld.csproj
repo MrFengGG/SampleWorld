@@ -48,10 +48,11 @@
     <Compile Include="engine\components\camera\SampleCamera2D.cs" />
     <Compile Include="engine\components\physic\ColliderComponent.cs" />
     <Compile Include="engine\components\physic\Collider.cs" />
-    <Compile Include="engine\managers\PhysicSystem.cs" />
+    <Compile Include="engine\context\InputContext.cs" />
+    <Compile Include="engine\context\PhysicSystem.cs" />
     <Compile Include="engine\components\physic\SampleCollider.cs" />
     <Compile Include="engine\components\spirites\SpiriteComponent.cs" />
-    <Compile Include="engine\managers\GameObjectManager.cs" />
+    <Compile Include="engine\context\World.cs" />
     <Compile Include="engine\components\DrawableLocalComponent.cs" />
     <Compile Include="engine\components\ILocalComponent.cs" />
     <Compile Include="engine\components\LocalComponent.cs" />
