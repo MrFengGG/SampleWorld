@@ -55,6 +55,10 @@ namespace SampleWorld.engine.gameObjects
             ObjectManager = manager;
             manager.AddObject(this);
             Parent = parent;
+            if (Parent != null)
+            {
+                Parent.AddChild(this);
+            }
             isActive = true;
 
             Position = new Vector2(0, 0);
@@ -80,7 +84,7 @@ namespace SampleWorld.engine.gameObjects
 
         public void AddComponent<T>(T component) where T : LocalComponent
         {
-            ObjectManager.AddComponent(this, component);
+            ObjectManager.AddComponentLazy(component);
         }
 
         public T GetComponent<T>() where T : LocalComponent
@@ -123,6 +127,7 @@ namespace SampleWorld.engine.gameObjects
             if(children == null || children.Count == 0)
             {
                 ObjectManager.RemoveObject(this);
+                return;
             }
             foreach(IGameObject child in children)
             {
@@ -141,7 +146,7 @@ namespace SampleWorld.engine.gameObjects
 
         public void RemoveComponent(LocalComponent component)
         {
-            ObjectManager.RemoveComponent(this, component);
+            ObjectManager.RemoveComponentLazy(component);
         }
 
         public List<LocalComponent> GetAllComponents()

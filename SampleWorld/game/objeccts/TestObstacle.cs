@@ -14,9 +14,7 @@ namespace SampleWorld.game.objeccts
         {
             Texture2D multiTexture = ResourceLoader.LoadTexture2D(manager.GraphicsDevice, "character", "Content/character.png");
             SpiriteComponent spirite = new SpiriteComponent(multiTexture, this, new Rectangle(112, 0, 16, 16));
-
             ColliderComponent collider = new ColliderComponent(this, new Vector2(0, 0), new Vector2(16, 16));
-
             collider.Collider.IsRigid = true;
         }
     }

@@ -37,18 +37,18 @@ namespace SampleWorld.engine.managers
             return false;
         }
 
-        public void AddComponent(GameObject parent, ColliderComponent component)
+        public void AddComponent(ColliderComponent component)
         {
-            if (!components.ContainsKey(parent))
+            if (!components.ContainsKey(component.Parent))
             {
-                components[parent] = new List<ColliderComponent>();
+                components[component.Parent] = new List<ColliderComponent>();
             }
-            components[parent].Add(component);
+            components[component.Parent].Add(component);
         }
 
-        public void RemoveComponent(GameObject parent, ColliderComponent component)
+        public void RemoveComponent(ColliderComponent component)
         {
-            components[parent].Remove(component);
+            components[component.Parent].Remove(component);
         }
 
         public void DestoryObject(GameObject parent)

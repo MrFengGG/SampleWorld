@@ -19,7 +19,6 @@ namespace SampleWorld.game.scripts
             Vector2 direction = new Vector2(state.X - Parent.Position.X, state.Y - Parent.Position.Y);
             if (state.LeftButton == ButtonState.Pressed) {
                 Bullet bullet = new Bullet(Parent.ObjectManager, Parent, direction);
-                Parent.ObjectManager.AddObject(bullet);
             }
         }
     }

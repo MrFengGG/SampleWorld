@@ -13,7 +13,13 @@ namespace SampleWorld.engine.components
 
         Dictionary<GameObject, List<LocalComponent>> objectComponentMap = new Dictionary<GameObject, List<LocalComponent>>();
 
+        List<LocalComponent> toRemoveComponents = new List<LocalComponent>();
+
+        List<LocalComponent> toAddComponents = new List<LocalComponent>();
+
         List<GameObject> toRemoveObject = new List<GameObject>();
+
+        List<GameObject> toAddObject = new List<GameObject>();
 
         public PhysicSystem PhysicSystem { get; }
 
@@ -41,11 +47,38 @@ namespace SampleWorld.engine.components
         //更新组件
         public override void Update(GameTime gameTime)
         {
-            foreach(GameObject gameObject in toRemoveObject)
+            if(toAddObject.Count > 0)
             {
-                destoryGameObject(gameObject);
+                foreach(GameObject gameObject in toAddObject)
+                {
+                    objectComponentMap[gameObject] = new List<LocalComponent>();
+                }
+                toAddObject.Clear();
             }
-            toRemoveObject.Clear();
+            if (toAddComponents.Count > 0)
+            {
+                foreach (LocalComponent component in toAddComponents)
+                {
+                    AddComponent(component);
+                }
+                toAddComponents.Clear();
+            }
+            if (toRemoveComponents.Count > 0)
+            {
+                foreach (LocalComponent component in toRemoveComponents)
+                {
+                    RemoveComponent(component);
+                }
+                toRemoveComponents.Clear();
+            }
+            if (toRemoveObject.Count > 0)
+            {
+                foreach (GameObject gameObject in toRemoveObject)
+                {
+                    destoryGameObject(gameObject);
+                }
+                toRemoveObject.Clear();
+            }
             foreach (GameObject gameObject in objectComponentMap.Keys)
             {
                 foreach (LocalComponent component in objectComponentMap[gameObject])
@@ -57,7 +90,7 @@ namespace SampleWorld.engine.components
         //添加游戏对象
         public void AddObject(GameObject gameObject)
         {
-            objectComponentMap[gameObject] = new List<LocalComponent>();
+            toAddObject.Add(gameObject);
         }
         //获取对象组件
         public T GetComponent<T>(GameObject gameObject) where T : LocalComponent
@@ -123,22 +156,32 @@ namespace SampleWorld.engine.components
             toRemoveObject.Add(gameObject);
         }
         //为对象添加组件
-        public void AddComponent(GameObject gameObject, LocalComponent localComponent)
+        public void AddComponent(LocalComponent localComponent)
         {
-            objectComponentMap[gameObject].Add(localComponent);
+            objectComponentMap[localComponent.Parent].Add(localComponent);
             if(localComponent is ColliderComponent)
             {
-                PhysicSystem.AddComponent(gameObject, (ColliderComponent)localComponent);
+                PhysicSystem.AddComponent((ColliderComponent)localComponent);
             }
         }
-        //删除组件
-        public void RemoveComponent(GameObject gameObject, LocalComponent localComponent)
+        //下次更新时添加组件
+        public void AddComponentLazy(LocalComponent localComponent)
         {
-            objectComponentMap[gameObject].Remove(localComponent);
+            toAddComponents.Add(localComponent);
+        }
+        //删除组件
+        public void RemoveComponent(LocalComponent localComponent)
+        {
+            objectComponentMap[localComponent.Parent].Remove(localComponent);
             if (localComponent is ColliderComponent)
             {
-                PhysicSystem.RemoveComponent(gameObject, (ColliderComponent)localComponent);
+                PhysicSystem.RemoveComponent((ColliderComponent)localComponent);
             }
+        }
+        //下次更新时删除组件
+        public void RemoveComponentLazy(LocalComponent localComponent)
+        {
+            toRemoveComponents.Add(localComponent);
         }
         //销毁对象
         private void destoryGameObject(GameObject gameObject)

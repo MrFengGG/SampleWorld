@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using SampleWorld.engine.components;
 using SampleWorld.engine.components.animations;
-using SampleWorld.engine.components.camera;
 using SampleWorld.engine.components.physic;
 using SampleWorld.engine.gameObjects;
 using SampleWorld.engine.respurces;
