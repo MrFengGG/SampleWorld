@@ -7,6 +7,8 @@ namespace SampleWorld.engine.gameObjects
     public interface IGameObject : IAdjustable
     {
         List<LocalComponent> GetAllComponents();
+
+        void Initial();
         
         //获取子组件
         List<T> GetComponentList<T>() where T : LocalComponent;

@@ -1,6 +1,5 @@
 ﻿
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using SampleWorld.engine.gameObjects;
 using System.Collections.Generic;
 
@@ -12,7 +11,7 @@ namespace SampleWorld.engine.components.animations
 
         private Animation currentAnimation;
 
-        public AnimationControllerComponent(GameObject gameObject, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, string name, Animation animation) : base(gameObject, graphicsDevice, spriteBatch)
+        public AnimationControllerComponent(GameObject gameObject, string name, Animation animation) : base(gameObject)
         {
             animationMap[name] = animation;
             currentAnimation = animation;

@@ -14,7 +14,7 @@ namespace SampleWorld.game.objeccts.weapons
         {
             MoveDirectScript moveDirectScript = new MoveDirectScript(this, 1, direction, 5);
             Texture2D texture = ResourceLoader.LoadTexture2D(manager.GraphicsDevice, "bullet", "Content/bullet.png");
-            SpiriteComponent spirite = new SpiriteComponent(texture, this, manager.GraphicsDevice, manager.SpriteBatch);
+            SpiriteComponent spirite = new SpiriteComponent(texture, this);
         }
     }
 }

@@ -11,20 +11,15 @@ namespace SampleWorld.engine.components
     {
         public SpriteBatch SpriteBatch { get; }
 
-        public GraphicsDevice GraphicsDevice { get; }
-
         Dictionary<GameObject, List<LocalComponent>> objectComponentMap = new Dictionary<GameObject, List<LocalComponent>>();
 
         List<GameObject> toRemoveObject = new List<GameObject>();
-
-        List<GameObject> toAddObject = new List<GameObject>();
 
         public PhysicSystem PhysicSystem { get; }
 
         public GameObjectManager(Game game) : base(game)
         {
             game.Components.Add(this);
-            GraphicsDevice = game.GraphicsDevice;
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             PhysicSystem = new PhysicSystem();
         }
@@ -51,11 +46,6 @@ namespace SampleWorld.engine.components
                 destoryGameObject(gameObject);
             }
             toRemoveObject.Clear();
-            foreach(GameObject gameObject in toAddObject)
-            {
-                doAddGameObject(gameObject);
-            }
-            toAddObject.Clear();
             foreach (GameObject gameObject in objectComponentMap.Keys)
             {
                 foreach (LocalComponent component in objectComponentMap[gameObject])
@@ -67,11 +57,7 @@ namespace SampleWorld.engine.components
         //添加游戏对象
         public void AddObject(GameObject gameObject)
         {
-            doAddGameObject(gameObject);
-        }
-        public void lazyAddObject(GameObject gameObject)
-        {
-            toAddObject.Add(gameObject);
+            objectComponentMap[gameObject] = new List<LocalComponent>();
         }
         //获取对象组件
         public T GetComponent<T>(GameObject gameObject) where T : LocalComponent
@@ -106,7 +92,7 @@ namespace SampleWorld.engine.components
         {
             return objectComponentMap[gameObject];
         }
-
+        //获取所有游戏对象
         public List<T> getGameObjects<T>() where T : GameObject
         {
             List<T> gameObjects = new List<T>();
@@ -119,6 +105,7 @@ namespace SampleWorld.engine.components
             }
             return gameObjects;
         }
+        //获取游戏对象
         public T getGameObject<T>() where T : GameObject
         {
             foreach (GameObject gameObject in objectComponentMap.Keys)
@@ -158,11 +145,6 @@ namespace SampleWorld.engine.components
         {
             objectComponentMap.Remove(gameObject);
             PhysicSystem.DestoryObject(gameObject);
-        }
-        private void doAddGameObject(GameObject gameObject)
-        {
-            objectComponentMap[gameObject] = new List<LocalComponent>();
-            PhysicSystem.AddObject(gameObject);
         }
     }
 }

@@ -45,7 +45,6 @@ namespace SampleWorld
             gameObjectManager = new GameObjectManager(this);
 
             TestGameObject testGame = new TestGameObject(gameObjectManager, null);
-            gameObjectManager.AddObject(testGame);
             camera = new SampleCamera2D(testGame, GraphicsDevice);
             for (int i = 0; i < 10;i++)
             {
@@ -53,7 +52,6 @@ namespace SampleWorld
                 {
                     TestObstacle test = new TestObstacle(gameObjectManager, null);
                     test.Position = new Vector2(40 * i, 40 * j);
-                    gameObjectManager.AddObject(test);
                 }
             }
 

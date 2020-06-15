@@ -53,6 +53,7 @@ namespace SampleWorld.engine.gameObjects
             Rotation = 0;
 
             ObjectManager = manager;
+            manager.AddObject(this);
             Parent = parent;
             isActive = true;
 
@@ -146,6 +147,10 @@ namespace SampleWorld.engine.gameObjects
         public List<LocalComponent> GetAllComponents()
         {
             return ObjectManager.getAllComponents(this);
+        }
+
+        public virtual void Initial()
+        {
         }
     }
 }

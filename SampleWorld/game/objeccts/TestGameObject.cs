@@ -14,7 +14,6 @@ namespace SampleWorld.game.objeccts
     {
         public TestGameObject(GameObjectManager manager, GameObject parent) : base(manager, parent)
         {
-            manager.AddObject(this);
             Texture2D multiTexture = ResourceLoader.LoadTexture2D(manager.GraphicsDevice, "character", "Content/character.png");
             Animation moveDownAnimation = new Animation(manager.SpriteBatch,new AnimationFrame(multiTexture, new Rectangle(0, 0, 16, 16)));
             moveDownAnimation.AddFrame(new AnimationFrame(multiTexture, new Rectangle(16, 0, 16, 16)));
@@ -41,7 +40,7 @@ namespace SampleWorld.game.objeccts
             Animation stopUpAnimation = new Animation(manager.SpriteBatch, new AnimationFrame(multiTexture, new Rectangle(144, 0, 16, 16)));
             Animation stopLeftAnimation = new Animation(manager.SpriteBatch, new AnimationFrame(multiTexture, new Rectangle(48, 0, 16, 16)));
             Animation stopRightAnimation = new Animation(manager.SpriteBatch, new AnimationFrame(multiTexture, new Rectangle(96, 0, 16, 16)));
-            AnimationControllerComponent animationController = new AnimationControllerComponent(this, manager.GraphicsDevice, manager.SpriteBatch, "moveUp", moveUpAnimation);
+            AnimationControllerComponent animationController = new AnimationControllerComponent(this, "moveUp", moveUpAnimation);
             animationController.AddAnimation("moveDown", moveDownAnimation);
             animationController.AddAnimation("moveLeft", moveLeftAnimation);
             animationController.AddAnimation("moveRight", moveRightAnimation);

@@ -18,7 +18,7 @@ namespace SampleWorld.engine.components.spirites
 
         public Vector2 Position { get; set; }
 
-        public SpiriteComponent(Texture2D texture,GameObject gameObject, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch) : base(gameObject, graphicsDevice, spriteBatch)
+        public SpiriteComponent(Texture2D texture,GameObject gameObject) : base(gameObject)
         {
             Texture = texture;
             TextureColor = Color.White;
@@ -27,7 +27,7 @@ namespace SampleWorld.engine.components.spirites
             SourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
         }
 
-        public SpiriteComponent(Texture2D texture, GameObject gameObject, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, Rectangle rectangle) : this(texture, gameObject, graphicsDevice, spriteBatch)
+        public SpiriteComponent(Texture2D texture, GameObject gameObject, Rectangle rectangle) : this(texture, gameObject)
         {
             SourceRectangle = rectangle;
         }

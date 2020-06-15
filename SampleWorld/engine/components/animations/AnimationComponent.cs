@@ -8,9 +8,9 @@ namespace SampleWorld.engine.components.animations
     {
         Animation animation;
 
-        public AnimationComponent(GameObject gameObject, GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, AnimationFrame firstFrame) : base(gameObject, graphicsDevice, spriteBatch)
+        public AnimationComponent(GameObject gameObject, AnimationFrame firstFrame) : base(gameObject)
         {
-            animation = new Animation(spriteBatch, firstFrame);
+            animation = new Animation(SpriteBatch, firstFrame);
         }
 
         public override void Update(GameTime gameTime)
