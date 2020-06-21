@@ -10,6 +10,11 @@ namespace SampleWorld.game.scripts
 {
     class WeaponScript : LocalComponent
     {
+        bool okToShoot = true;
+
+        float shootDistance = 0.2f;
+
+        float shootSpend = 0.2f;
 
         public WeaponScript(GameObject gameObject) : base(gameObject)
         {
@@ -18,13 +23,21 @@ namespace SampleWorld.game.scripts
 
         public override void Update(GameTime gameTime)
         {
-            MouseState state = Mouse.GetState();
-            Vector2 targetPosition = InputContext.GetMousePosition();
-            Vector2 direction = targetPosition - Parent.Position;
-            float rotation = CalculateAngleBetweenPoints(Parent.Position.ToPoint(), targetPosition.ToPoint());
-            direction.Normalize();
-            if (state.LeftButton == ButtonState.Pressed) {
-                Bullet bullet = new Bullet(Parent.World, null, direction, Parent.Position, rotation);
+            float time = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            shootSpend += time;
+            if(shootSpend >= shootDistance)
+            {
+                MouseState state = Mouse.GetState();
+                Vector2 targetPosition = InputContext.GetMousePosition();
+                Vector2 direction = targetPosition - Parent.Position;
+                float rotation = CalculateAngleBetweenPoints(Parent.Position.ToPoint(), targetPosition.ToPoint());
+                direction.Normalize();
+                if (state.LeftButton == ButtonState.Pressed)
+                {
+                    Bullet bullet = new Bullet(Parent.World, null, direction, Parent.Position, rotation);
+                }
+
+                shootSpend = 0;
             }
         }
 
