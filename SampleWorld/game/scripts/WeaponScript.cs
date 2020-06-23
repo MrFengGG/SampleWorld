@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SampleWorld.engine.components;
+using SampleWorld.engine.components.scripts;
 using SampleWorld.engine.gameObjects;
 using SampleWorld.engine.managers;
 using SampleWorld.game.objeccts.weapons;
@@ -8,7 +9,7 @@ using System;
 
 namespace SampleWorld.game.scripts
 {
-    class WeaponScript : LocalComponent
+    class WeaponScript : ScriptComponent
     {
         bool okToShoot = true;
 

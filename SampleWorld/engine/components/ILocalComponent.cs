@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using SampleWorld.engine.gameObjects;
+using SampleWorld.engine.events;
 using SampleWorld.engine.support;
 
 namespace SampleWorld.engine.components
@@ -8,5 +8,7 @@ namespace SampleWorld.engine.components
     {
         //更新组件状态
         void Update(GameTime gameTime);
+
+        void OnEvent(EventArgs eventArgs);
     }
 }

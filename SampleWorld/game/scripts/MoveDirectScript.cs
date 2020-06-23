@@ -1,12 +1,13 @@
 ﻿
 using Microsoft.Xna.Framework;
-using SampleWorld.engine.components;
+using SampleWorld.engine.components.scripts;
+using SampleWorld.engine.events;
 using SampleWorld.engine.gameObjects;
-using System;
+using SampleWorld.game.objeccts;
 
 namespace SampleWorld.game.scripts
 {
-    class MoveDirectScript : LocalComponent
+    class MoveDirectScript : ScriptComponent
     {
         public float Speed{ get; set;}
         public Vector2 Direction { get; set; }
@@ -32,6 +33,14 @@ namespace SampleWorld.game.scripts
             }
             Parent.Position = Parent.Position + Speed * second * Direction;
             Parent.Rotation = Rotation;
+        }
+
+        public override void OnEvent(EventArgs eventArgs)
+        {
+            if (eventArgs.Other.Parent is TestObstacle)
+            {
+                Parent.Destory();
+            }
         }
     }
 }

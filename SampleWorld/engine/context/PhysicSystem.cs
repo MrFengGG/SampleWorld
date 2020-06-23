@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.Xna.Framework;
 using SampleWorld.engine.components.physic;
+using SampleWorld.engine.events;
 using SampleWorld.engine.gameObjects;
 using System.Collections.Generic;
 
@@ -17,10 +18,16 @@ namespace SampleWorld.engine.managers
             {
                 foreach (ColliderComponent systemComponent in components[key])
                 {
+                    if(component.Level != systemComponent.Level)
+                    {
+                        continue;
+                    }
                     if (component.Collider.IsRigid && component.Collider.IsRigid)
                     {
                         if (component.Collider.Detection(systemComponent.Collider, ref moveDelta))
                         {
+                            component.OnEvent(new EventArgs(engine.components.events.EventTypeEnum.Colliding, systemComponent));
+                            systemComponent.OnEvent(new EventArgs(engine.components.events.EventTypeEnum.Colliding, component));
                             return true;
                         }
                     }
@@ -28,6 +35,8 @@ namespace SampleWorld.engine.managers
                     {
                         if (component.Collider.Detection(systemComponent.Collider))
                         {
+                            component.OnEvent(new EventArgs(engine.components.events.EventTypeEnum.Colliding, systemComponent));
+                            systemComponent.OnEvent(new EventArgs(engine.components.events.EventTypeEnum.Colliding, component));
                             return true;
                         }
                     }

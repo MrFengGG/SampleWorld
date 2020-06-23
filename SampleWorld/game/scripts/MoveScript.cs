@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SampleWorld.engine.components;
+using SampleWorld.engine.components.scripts;
 using SampleWorld.engine.gameObjects;
 
 namespace SampleWorld.game.scripts
 {
-    class MoveScript : LocalComponent
+    class MoveScript : ScriptComponent
     {
         public float Speed { get; set; }
 

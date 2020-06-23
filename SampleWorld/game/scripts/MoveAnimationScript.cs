@@ -3,11 +3,12 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using SampleWorld.engine.components;
 using SampleWorld.engine.components.animations;
+using SampleWorld.engine.components.scripts;
 using SampleWorld.engine.gameObjects;
 
 namespace SampleWorld.game.scripts
 {
-    class MoveAnimationScript : LocalComponent
+    class MoveAnimationScript : ScriptComponent
     {
         bool up;
         bool down;

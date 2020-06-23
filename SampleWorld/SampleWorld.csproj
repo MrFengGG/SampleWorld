@@ -46,6 +46,11 @@
     <Compile Include="engine\components\animations\AnimationControllerComponent.cs" />
     <Compile Include="engine\components\animations\AnimationFrame.cs" />
     <Compile Include="engine\components\camera\SampleCamera2D.cs" />
+    <Compile Include="engine\components\scripts\ScriptComponent.cs" />
+    <Compile Include="engine\events\EventArgs.cs" />
+    <Compile Include="engine\events\EventQueue.cs" />
+    <Compile Include="engine\events\EventTypeEnum.cs" />
+    <Compile Include="engine\components\map\Tile.cs" />
     <Compile Include="engine\components\physic\ColliderComponent.cs" />
     <Compile Include="engine\components\physic\Collider.cs" />
     <Compile Include="engine\context\InputContext.cs" />

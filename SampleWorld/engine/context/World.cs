@@ -112,7 +112,7 @@ namespace SampleWorld.engine.components
             {
                 foreach (LocalComponent component in objectComponentMap[gameObject])
                 {
-                    if (component.GetType().Equals(typeof(T)))
+                    if(component is T)
                     {
                         components.Add((T)component);
                     }

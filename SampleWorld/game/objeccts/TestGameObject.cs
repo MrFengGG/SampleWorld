@@ -53,7 +53,7 @@ namespace SampleWorld.game.objeccts
 
             MoveAnimationScript moveAnimationScript = new MoveAnimationScript(this);
 
-            ColliderComponent collider = new ColliderComponent(this, new Vector2(0, 0), new Vector2(16, 16));
+            ColliderComponent collider = new ColliderComponent(this, new Vector2(0, 0), new Vector2(16, 8));
             collider.Collider.IsRigid = true;
 
             WeaponScript weaponScript = new WeaponScript(this);

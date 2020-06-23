@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.Xna.Framework;
+using SampleWorld.engine.events;
 using SampleWorld.engine.gameObjects;
 
 namespace SampleWorld.engine.components
@@ -32,5 +33,9 @@ namespace SampleWorld.engine.components
         }
 
         public virtual void Update(GameTime gameTime) { }
+
+        public virtual void OnEvent(EventArgs eventArgs)
+        {
+        }
     }
 }
