@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SampleWorld.engine.respurces
 {
@@ -22,7 +23,7 @@ namespace SampleWorld.engine.respurces
             {
                 return textureDict[textureName];
             }
-            using (var stream = TitleContainer.OpenStream(texturePath))
+            using (var stream = new System.IO.FileStream(texturePath, FileMode.Open))
             {
                 Texture2D texture = Texture2D.FromStream(graphicsDevice, stream);
                 textureDict[textureName] = texture;

@@ -30,6 +30,12 @@ namespace SampleWorld.engine.gameObjects
                         position.Y += delta.Y;
                         return;
                     }
+                    if(World.Map.DetectionMove(component, ref delta))
+                    {
+                        position.X += delta.X;
+                        position.Y += delta.Y;
+                        return;
+                    }
                 }
                 position = value;
             }
@@ -47,8 +53,11 @@ namespace SampleWorld.engine.gameObjects
 
         bool isActive;
 
+        public float Depth { get; set; }
+
         public GameObject(World world, GameObject parent)
         {
+            Depth = 0.5f;
             Scale = new Vector2(1, 1);
             Rotation = 0;
 

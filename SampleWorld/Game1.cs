@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using SampleWorld.engine.components;
 using SampleWorld.engine.components.camera;
+using SampleWorld.engine.components.map;
 using SampleWorld.engine.managers;
 using SampleWorld.game.objeccts;
 
@@ -16,6 +17,7 @@ namespace SampleWorld
         GraphicsDeviceManager graphics;
         World world;
         Camera camera;
+        TileMap map;
 
         public Game1()
         {
@@ -44,19 +46,13 @@ namespace SampleWorld
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             world = new World(this);
-
             TestGameObject testGame = new TestGameObject(world, null);
             camera = new Camera(testGame, GraphicsDevice);
+            world.Camera = camera;
             camera.Follow = testGame;
-            for (int i = 0; i < 10;i++)
-            {
-                for (int j = 0; j < 10; j++)
-                {
-                    TestObstacle test = new TestObstacle(world, null);
-                    test.Position = new Vector2(40 * i, 40 * j);
-                }
-            }
-
+           
+            map = new TileMap("Content/map1.tmx", world);
+            world.Map = map;
             // TODO: use this.Content to load your game content here
         }
 
@@ -92,7 +88,7 @@ namespace SampleWorld
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             InputContext.CurrentTransform = camera.Transform;
-            world.SpriteBatch.Begin(SpriteSortMode.FrontToBack, null, null,null,null,null,camera.Transform);
+            world.SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.NonPremultiplied, null, null, null, null, camera.Transform);
             // TODO: Add your drawing code here
             base.Draw(gameTime);
             world.SpriteBatch.End();

@@ -37,5 +37,9 @@ namespace SampleWorld.engine.components
         public virtual void OnEvent(EventArgs eventArgs)
         {
         }
+
+        public virtual void Initlize()
+        {
+        }
     }
 }

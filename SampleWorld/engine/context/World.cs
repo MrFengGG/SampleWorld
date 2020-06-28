@@ -1,5 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SampleWorld.engine.components.camera;
+using SampleWorld.engine.components.map;
 using SampleWorld.engine.components.physic;
 using SampleWorld.engine.gameObjects;
 using SampleWorld.engine.managers;
@@ -10,6 +12,10 @@ namespace SampleWorld.engine.components
     public class World : DrawableGameComponent
     {
         public SpriteBatch SpriteBatch { get; }
+
+        public Camera Camera { get; set; }
+
+        public TileMap Map { get; set; }
 
         Dictionary<GameObject, List<LocalComponent>> objectComponentMap = new Dictionary<GameObject, List<LocalComponent>>();
 
@@ -43,6 +49,7 @@ namespace SampleWorld.engine.components
                     }
                 }
             }
+            Map.Draw(gameTime);
         }
         //更新组件
         public override void Update(GameTime gameTime)

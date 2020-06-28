@@ -11,8 +11,6 @@ namespace SampleWorld.engine.components.animations
 
         public Color TextureColor { get; set; }
 
-        public float Depth { get; set; }
-
         public Vector2 Origin { get; set; }
 
         private SpriteBatch spriteBatch;
@@ -49,7 +47,6 @@ namespace SampleWorld.engine.components.animations
         public Animation(SpriteBatch spriteBatch, AnimationFrame firstFrame)
         {
             frames.Add(firstFrame);
-            Depth = 0.1f;
             TextureColor = Color.White;
             this.spriteBatch = spriteBatch;
         }
@@ -63,7 +60,7 @@ namespace SampleWorld.engine.components.animations
             timeIntoAnimation = TimeSpan.FromSeconds(remainder);
         }
 
-        public void Draw(GameTime gameTime, Vector2 position, Vector2 scale, float rotation)
+        public void Draw(GameTime gameTime, Vector2 position, Vector2 scale, float rotation, float Depth)
         {
             AnimationFrame currentFrame = getCurrentFrame();
             if (currentFrame != null)

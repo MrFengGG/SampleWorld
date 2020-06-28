@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SampleWorld.engine.gameObjects;
+using SampleWorld.engine.support;
 
 namespace SampleWorld.engine.components.spirites
 {
@@ -18,11 +19,11 @@ namespace SampleWorld.engine.components.spirites
 
         public Vector2 Position { get; set; }
 
-        public SpiriteComponent(Texture2D texture,GameObject gameObject) : base(gameObject)
+        public SpiriteComponent(Texture2D texture, GameObject gameObject) : base(gameObject)
         {
             Texture = texture;
             TextureColor = Color.White;
-            Depth = 0.5f;
+            Depth = gameObject.Depth;
             Origin = new Vector2(1, 1);
             SourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
         }

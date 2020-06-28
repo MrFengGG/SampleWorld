@@ -4,7 +4,7 @@ using SampleWorld.engine.support;
 using System.Collections.Generic;
 namespace SampleWorld.engine.gameObjects
 {
-    public interface IGameObject : IAdjustable
+    public interface IGameObject : IAdjustable, IDepthAdjustable
     {
         List<LocalComponent> GetAllComponents();
 

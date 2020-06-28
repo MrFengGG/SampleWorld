@@ -10,5 +10,7 @@ namespace SampleWorld.engine.components
         void Update(GameTime gameTime);
 
         void OnEvent(EventArgs eventArgs);
+
+        void Initlize();
     }
 }
